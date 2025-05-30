@@ -5,6 +5,7 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { EventsModule } from './events/events.module';
+import { ScrapersModule } from './events/scrapers/scrapers.module';
 
 @Module({
   imports: [
@@ -24,6 +25,8 @@ import { EventsModule } from './events/events.module';
 
     // Feature modules
     EventsModule,
+
+    ScrapersModule,
   ],
   controllers: [AppController],
   providers: [AppService],

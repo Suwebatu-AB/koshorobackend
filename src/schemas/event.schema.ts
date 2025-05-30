@@ -2,8 +2,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
-export type EventDocument = Event & Document;
-
 @Schema({ timestamps: true })
 export class Event {
   @Prop({ required: true })
@@ -12,8 +10,26 @@ export class Event {
   @Prop({ required: true })
   date: Date;
 
+  @Prop()
+  time?: string;
+
+  @Prop()
+  duration?: string;
+
   @Prop({ required: true })
   location: string;
+
+  @Prop()
+  venue?: string;
+
+  @Prop()
+  city?: string;
+
+  @Prop()
+  state?: string;
+
+  @Prop({ default: 'Nigeria' })
+  country: string;
 
   @Prop({ default: 'Free' })
   price: string;
@@ -28,7 +44,13 @@ export class Event {
   description?: string;
 
   @Prop()
+  aboutEvent?: string;
+
+  @Prop()
   imageUrl?: string;
+
+  @Prop()
+  bannerUrl?: string;
 
   @Prop({ required: true, enum: ['tix.africa', 'eventbrite', 'instagram'] })
   source: string;
@@ -37,7 +59,17 @@ export class Event {
   originalUrl?: string;
 
   @Prop()
+  eventSlug?: string;
+
+  @Prop()
   organizer?: string;
+
+  @Prop({ type: Object })
+  contact?: {
+    phone?: string;
+    email?: string;
+    website?: string;
+  };
 
   @Prop({ type: Object })
   coordinates?: {
@@ -45,23 +77,29 @@ export class Event {
     lng: number;
   };
 
+  @Prop()
+  directionsUrl?: string;
+
   @Prop({ default: false })
   isActive: boolean;
 
-  @Prop()
+  @Prop([String])
   tags?: string[];
 
-  @Prop()
-  venue?: string;
+  @Prop([Object])
+  ticketTypes?: Array<{
+    name: string;
+    price: string;
+    description?: string;
+  }>;
 
-  @Prop()
-  city?: string;
-
-  @Prop()
-  state?: string;
-
-  @Prop({ default: 'Nigeria' })
-  country: string;
+  @Prop({ type: Object })
+  socialLinks?: {
+    facebook?: string;
+    twitter?: string;
+    instagram?: string;
+  };
 }
 
+export type EventDocument = Event & Document;
 export const EventSchema = SchemaFactory.createForClass(Event);

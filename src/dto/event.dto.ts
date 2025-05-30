@@ -23,78 +23,29 @@ class CoordinatesDto {
 }
 
 export class CreateEventDto {
-  @ApiProperty({ example: 'Afrobeats on the Beach' })
+  @ApiProperty({ example: 'Afrobeats Concert 2025' })
   @IsString()
   eventName: string;
 
-  @ApiProperty({ example: '2025-12-21T20:00:00Z' })
+  @ApiProperty({ example: '2025-12-25T20:00:00.000Z' })
   @IsDateString()
   date: string;
 
-  @ApiProperty({ example: 'Landmark Beach, Lagos' })
+  @ApiPropertyOptional({ example: '8:00 PM' })
+  @IsOptional()
+  @IsString()
+  time?: string;
+
+  @ApiPropertyOptional({ example: '3 hours' })
+  @IsOptional()
+  @IsString()
+  duration?: string;
+
+  @ApiProperty({ example: 'Lagos, Nigeria' })
   @IsString()
   location: string;
 
-  @ApiPropertyOptional({ example: '10,000 NGN' })
-  @IsOptional()
-  @IsString()
-  price?: string;
-
-  @ApiPropertyOptional({ example: 'https://tix.africa/event/123' })
-  @IsOptional()
-  @IsString()
-  ticketLink?: string;
-
-  @ApiProperty({ example: 'Concert' })
-  @IsString()
-  category: string;
-
-  @ApiPropertyOptional({ example: 'Amazing beach concert with top artists' })
-  @IsOptional()
-  @IsString()
-  description?: string;
-
-  @ApiPropertyOptional({ example: 'https://example.com/image.jpg' })
-  @IsOptional()
-  @IsString()
-  imageUrl?: string;
-
-  @ApiProperty({
-    example: 'tix.africa',
-    enum: ['tix.africa', 'eventbrite', 'instagram'],
-  })
-  @IsEnum(['tix.africa', 'eventbrite', 'instagram'])
-  source: string;
-
-  @ApiPropertyOptional({ example: 'https://tix.africa/event/original' })
-  @IsOptional()
-  @IsString()
-  originalUrl?: string;
-
-  @ApiPropertyOptional({ example: 'Event Organizers Ltd' })
-  @IsOptional()
-  @IsString()
-  organizer?: string;
-
-  @ApiPropertyOptional({ type: CoordinatesDto })
-  @IsOptional()
-  @IsObject()
-  @ValidateNested()
-  @Type(() => CoordinatesDto)
-  coordinates?: CoordinatesDto;
-
-  @ApiPropertyOptional({ example: true })
-  @IsOptional()
-  @IsBoolean()
-  isActive?: boolean;
-
-  @ApiPropertyOptional({ example: ['music', 'beach', 'weekend'] })
-  @IsOptional()
-  @IsArray()
-  @IsString({ each: true })
-  tags?: string[];
-
-  @ApiPropertyOptional({ example: 'Landmark Beach Resort' })
+  @ApiPropertyOptional({ example: 'Eko Convention Centre' })
   @IsOptional()
   @IsString()
   venue?: string;
@@ -113,6 +64,109 @@ export class CreateEventDto {
   @IsOptional()
   @IsString()
   country?: string;
+
+  @ApiPropertyOptional({ example: '5000' })
+  @IsOptional()
+  @IsString()
+  price?: string;
+
+  @ApiPropertyOptional({ example: 'https://tix.africa/buy-ticket/123' })
+  @IsOptional()
+  @IsString()
+  ticketLink?: string;
+
+  @ApiProperty({ example: 'Concert' })
+  @IsString()
+  category: string;
+
+  @ApiPropertyOptional({ example: 'Amazing Afrobeats concert...' })
+  @IsOptional()
+  @IsString()
+  description?: string;
+
+  @ApiPropertyOptional({ example: 'Join us for an unforgettable night...' })
+  @IsOptional()
+  @IsString()
+  aboutEvent?: string;
+
+  @ApiPropertyOptional({ example: 'https://example.com/image.jpg' })
+  @IsOptional()
+  @IsString()
+  imageUrl?: string;
+
+  @ApiPropertyOptional({ example: 'https://example.com/banner.jpg' })
+  @IsOptional()
+  @IsString()
+  bannerUrl?: string;
+
+  @ApiProperty({ example: 'tix.africa' })
+  @IsString()
+  source: string;
+
+  @ApiPropertyOptional({ example: 'https://tix.africa/discover/event-slug' })
+  @IsOptional()
+  @IsString()
+  originalUrl?: string;
+
+  @ApiPropertyOptional({ example: 'event-slug' })
+  @IsOptional()
+  @IsString()
+  eventSlug?: string;
+
+  @ApiPropertyOptional({ example: 'Event Organizers Ltd' })
+  @IsOptional()
+  @IsString()
+  organizer?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsObject()
+  contact?: {
+    phone?: string;
+    email?: string;
+    website?: string;
+  };
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsObject()
+  coordinates?: {
+    lat: number;
+    lng: number;
+  };
+
+  @ApiPropertyOptional({ example: 'https://maps.google.com/directions' })
+  @IsOptional()
+  @IsString()
+  directionsUrl?: string;
+
+  @ApiPropertyOptional({ example: true })
+  @IsOptional()
+  @IsBoolean()
+  isActive?: boolean;
+
+  @ApiPropertyOptional({ example: ['music', 'afrobeats', 'concert'] })
+  @IsOptional()
+  @IsArray()
+  tags?: string[];
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsArray()
+  ticketTypes?: Array<{
+    name: string;
+    price: string;
+    description?: string;
+  }>;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsObject()
+  socialLinks?: {
+    facebook?: string;
+    twitter?: string;
+    instagram?: string;
+  };
 }
 
 export class UpdateEventDto {
